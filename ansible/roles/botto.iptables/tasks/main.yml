@@ -1,6 +1,6 @@
 ---
-  - name: Flush existing rules
-    shell: iptables --flush
+  #- name: Flush existing rules
+  #  shell: iptables --flush
 
   # Allow related and established connections
   - name: Allow established connections
