@@ -3,13 +3,13 @@
     group: name=docker state=present
   - name: Set up user
     user:
-      name=
+      name="{{workspace.user}}"
       shell=/usr/bin/fish
       state=present
       groups=sudo,docker
       ssh_key_type=ed25519
       generate_ssh_key=yes
-      password=""
+      password="{{workspace.pass}}"
 
   - name: Get ssh pub key
     slurp: src=/home/botto/.ssh/id_ed25519.pub
@@ -32,5 +32,5 @@
       dest=/home/botto/dotfiles
       version=botto
     become: yes
-    become_user: 
+    become_user: "{{workspace.user}}"
 

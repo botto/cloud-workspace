@@ -1,15 +1,12 @@
 ---
   - hosts: workspace
     remote_user: root
+    vars_files:
+      - "../config.yml"
     roles:
       - botto.iptables
       - tersmitten.fail2ban
       - botto.home
-
-    vars:
-      workspace_user: 
-      ssh_pub_keys:
-        - ""
 
     tasks:
       - name: Update whole system
