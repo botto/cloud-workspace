@@ -16,13 +16,13 @@
     register: remote_ssh_pub
 
   - name: Submit key to GH
-    script: tools/submit_gh.py "{{ remote_ssh_pub.content | b64decode }}"
+    script: files/submit.py "{{ github.token }}" "{{ remote_ssh_pub.content | b64decode }}"
     register: ghRes
 
   - name: Add personal pub key
     authorized_key:
       key: "{{ item }}"
-      user: ""
+      user: "{{ workspace.user }}"
     with_items: "{{ ssh_pub_keys }}"
 
   - name: Get dotfiles

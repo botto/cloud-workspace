@@ -3,17 +3,17 @@ import fileinput, requests, json, pprint, argparse
 from pprint import pprint
 
 argParser = argparse.ArgumentParser(description='Simple instruction')
-argParser.add_argument('pubkey', type=str)
+argParser.add_argument('token', type=str, help="GitHub token")
+argParser.add_argument('pubkey', type=str, help="The public key you wish to add")
 
 argsData = argParser.parse_args()
 
 class GHPubKey:
-  token = ''
   pubKey = ''
   endpoint = 'https://api.github.com/user/keys'
   keyTitle = 'cloud-workspace'
   headers = {
-    'Authorization': 'token'
+    'Authorization': 'token ' + argsData.token
   }
 
   def checkKey(self):
