@@ -1,0 +1,36 @@
+---
+  - name: Add docker group
+    group: name=docker state=present
+  - name: Set up user
+    user:
+      name=
+      shell=/usr/bin/fish
+      state=present
+      groups=sudo,docker
+      ssh_key_type=ed25519
+      generate_ssh_key=yes
+      password=""
+
+  - name: Get ssh pub key
+    slurp: src=/home/botto/.ssh/id_ed25519.pub
+    register: remote_ssh_pub
+
+  - name: Submit key to GH
+    script: tools/submit_gh.py "{{ remote_ssh_pub.content | b64decode }}"
+    register: ghRes
+
+  - name: Add personal pub key
+    authorized_key:
+      key: "{{ item }}"
+      user: ""
+    with_items: "{{ ssh_pub_keys }}"
+
+  - name: Get dotfiles
+    git:
+      accept_hostkey=True
+      repo=https://github.com/botto/dotfiles.git
+      dest=/home/botto/dotfiles
+      version=botto
+    become: yes
+    become_user: 
+

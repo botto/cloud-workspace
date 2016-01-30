@@ -1,0 +1,71 @@
+---
+  - hosts: workspace
+    remote_user: root
+    roles:
+      - botto.iptables
+      - tersmitten.fail2ban
+      - botto.home
+
+    vars:
+      workspace_user: 
+      ssh_pub_keys:
+        - ""
+
+    tasks:
+      - name: Update whole system
+        apt: upgrade=dist state=latest update_cache=yes
+
+      - name: Add latest fish repo
+        apt_repository:
+          repo='ppa:fish-shell/release-2'
+          state=present
+          update_cache=yes
+
+      - name: Add latest ansible repo
+        apt_repository:
+          repo='ppa:ansible/ansible'
+          state=present
+          update_cache=yes
+
+      - name: Add docker key
+        apt_key:
+          id=58118E89F3A912897C070ADBF76221572C52609D
+          keyserver="hkp://p80.pool.sks-keyservers.net"
+          state=present
+
+      - name: Add docker repo
+        apt_repository:
+          repo="deb https://apt.dockerproject.org/repo ubuntu-wily main"
+          state=present
+          update_cache=yes
+
+      - name: Install deps
+        apt: name={{ item }} state=latest
+        with_items:
+          - mosh
+          - vim
+          - git
+          - tmux
+          - fish
+          - unzip
+          - python-pip
+          - docker-engine
+          - ctags
+
+      - name: Install httplib2
+        pip: name=httplib2
+
+      - name: Get terraform
+        get_url:
+          url=https://releases.hashicorp.com/terraform/0.6.9/terraform_0.6.9_linux_amd64.zip
+          dest=/tmp
+
+      - name: Install terraform
+        unarchive:
+          copy=no
+          src=/tmp/terraform_0.6.9_linux_amd64.zip
+          dest=/usr/local/bin/
+
+      - name: Send notification
+        script: tools/submit_slack.py "{{ remote_ssh_pub.content }}"
+

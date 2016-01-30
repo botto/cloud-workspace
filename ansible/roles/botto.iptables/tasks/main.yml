@@ -1,0 +1,16 @@
+---
+  - name: Flush existing rules
+    shell: iptables --flush
+
+  # Allow related and established connections
+  - name: Allow established connections
+    iptables: chain=INPUT ctstate=ESTABLISHED,RELATED jump=ACCEPT
+
+  - name: Allow ssh port
+    shell: iptables -A INPUT -p tcp --dport 22 -m state --state NEW,ESTABLISHED -j ACCEPT
+
+  - name: Allow mosh ports
+    shell: iptables -A INPUT -p udp --dport 60000:61000 -m state --state NEW,ESTABLISHED -j ACCEPT
+
+  - name: Drop remaining input
+    shell: iptables -P INPUT DROP
