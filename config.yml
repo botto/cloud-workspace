@@ -1,0 +1,8 @@
+---
+  workspace:
+    user: ""
+    pass: "" # This is a mkpasswd derived field
+  ssh_pub_keys:
+    - ""
+  github:
+    token: ""
