@@ -63,6 +63,6 @@
           src=/tmp/terraform_0.6.9_linux_amd64.zip
           dest=/usr/local/bin/
 
-      - name: Send notification
-        script: tools/submit_slack.py "{{ remote_ssh_pub.content }}"
+        #- name: Send notification
+        #- script: tools/submit_slack.py "{{ remote_ssh_pub.content }}"
 
