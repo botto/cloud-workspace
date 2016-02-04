@@ -1,0 +1,11 @@
+{
+  "variable": {
+    "gc": {
+      "type": "map",
+      "default": {
+        "project": "",
+        "region": ""
+      }
+    }
+  }
+}
