@@ -13,7 +13,6 @@ What you need
 - Credentials file
 - Project machine name
 - Region name
-- Terraform-inventory
 
 1. First register/sign in with google cloud https://cloud.google.com
 2. Create a project
