@@ -9,10 +9,10 @@ I have tested this with both google cloud and digital ocean, however I'm activel
 
 This will tell you the steps to get started with google cloud
 
-What you need
-- Credentials file
-- Project machine name
-- Region name
+What you need 
+- Credentials file  
+- Project machine name  
+- Region name  
 
 1. First register/sign in with google cloud https://cloud.google.com
 2. Create a project
