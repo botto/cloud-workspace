@@ -26,10 +26,10 @@ Steps:
 8. Save the json file as `gc_crenditals.json` in the root of the project  
 9. The project name can be found in the url ?project=<projectname>  
 10. For the region you can find a nice overview here https://cloud.google.com/compute/docs/zones#available  
-11. I would say pick the one that is closest to you  
+11. Create two files config.yml and workspace_config.tf.json, examples included
 12. Fill out workspace_config.tf.json with the project and region  
-13. Run `terraform plan` and look at what it's going to do  
-14. Run `terraform apply` and it will set up the env  
-15. Run `ansible-playbook -i terraform-inventory ansible/run.yml`  
+13. Get a GH token to  write the public key (https://github.com/settings/tokens)
+14. Fill out the required fields in config.yml
+15. Run `./run.sh`
 
 This is too many steps, but for now it's going to be like this, eventually want to make this only 2-3 steps after registration
