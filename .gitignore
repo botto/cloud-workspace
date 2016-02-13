@@ -3,3 +3,4 @@ ansible/roles/botto.home/files/ssh_keys/*
 !ansible/roles/botto.home/files/ssh_keys/.empty
 config.yml
 workspace_config.tf.json
+terraform.tfvars

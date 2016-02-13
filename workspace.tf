@@ -1,17 +1,17 @@
 # Configure the Google Cloud provider
 provider "google" {
   credentials = "${file("gc_credentials.json")}"
-  project     = "${var.gc.project}"
-  region      = "${var.gc.region}"
+  project     = "${var.project}"
+  region      = "${var.region}"
 }
 
 resource "google_compute_network" "workspace" {
-  name = "workspace"
+  name = "${var.workspace_name}"
   ipv4_range = "10.0.100.0/24"
 }
 
 resource "google_compute_firewall" "workspace-mosh" {
-  name = "allow-mosh"
+  name = "${var.workspace_name}-mosh"
   network = "${google_compute_network.workspace.name}"
 
   allow {
@@ -25,7 +25,7 @@ resource "google_compute_firewall" "workspace-mosh" {
 }
 
 resource "google_compute_firewall" "workspace-ssh" {
-  name = "allow-ssh"
+  name = "${var.workspace_name}-ssh"
   network = "${google_compute_network.workspace.name}"
 
   allow {
@@ -39,9 +39,9 @@ resource "google_compute_firewall" "workspace-ssh" {
 }
 
 resource "google_compute_instance" "workspace" {
-  name = "workspace"
+  name = "${var.workspace_name}"
   machine_type = "n1-standard-1"
-  zone = "${var.gc.region}"
+  zone = "${var.region}"
 
   disk {
     image = "ubuntu-1510-wily-v20151114"
