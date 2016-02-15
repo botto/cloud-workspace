@@ -63,6 +63,13 @@
           src=/tmp/terraform_0.6.9_linux_amd64.zip
           dest=/usr/local/bin/
 
+      - name: Get fish ssh agent handler
+        become: yes
+        become_user: "{{workspace.user}}"
+        get_url:
+          url=https://gist.githubusercontent.com/ukrutt/4f22fbdd3f81beea48b5/raw/14496be22dfa2f71456a6ecc5566a0155ccfc866/ssh_agent_start.fish
+          dest="/home/{{workspace.user}}"
+
         #- name: Send notification
         #- script: tools/submit_slack.py "{{ remote_ssh_pub.content }}"
 
