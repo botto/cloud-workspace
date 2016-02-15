@@ -48,6 +48,7 @@
           - python-pip
           - docker-engine
           - ctags
+          - ansible
 
       - name: Install httplib2
         pip: name=httplib2
